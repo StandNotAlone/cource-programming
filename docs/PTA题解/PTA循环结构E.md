@@ -1,6 +1,6 @@
 # 循环结构 PTA
 
-PTA 循环结构 HARD。
+PTA 循环结构 EASY。
 
 ## 约定
 
