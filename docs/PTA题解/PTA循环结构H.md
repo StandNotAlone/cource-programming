@@ -4,7 +4,7 @@ PTA 循环结构 HARD。
 
 ## 加点优化
 
-掌握一些常见的算法很有必要，部分较难的算法仅仅给出代码示例，感兴趣的可以自行学习。
+掌握一些常见的算法很有必要。
 
 如果看不懂，不必死磕。
 
@@ -181,9 +181,9 @@ int main() {
 
 放个维基的 GIF
 
-![Eratosthenes](https://pic.leetcode-cn.com/1606932458-HgVOnW-Sieve_of_Eratosthenes_animation.gif)
+![Eratosthenes](Eratosthenes.gif)
 
-实现如下
+实现如下。
 
 ```c
 int notp[10000001];
@@ -200,7 +200,7 @@ void init(int n) {
 }
 ```
 
-线性筛的复杂度更为优秀，是 $O(n)$，因为每个数只会被筛一次。
+线性筛的复杂度更为优秀，是 $O(n)$，因为每个数只会被筛一次。线性筛例题 [P3383](https://www.luogu.com.cn/problem/P3383)。
 
 ```c
 int notp[10000001];
@@ -221,6 +221,68 @@ void init(int n) {
 }
 ```
 
+## 7-7 中国余数定理（1）
+
+暴力是显然的。我在这里介绍一下数学做法。即求
+
+$$\begin{cases} n \equiv b &\pmod {3} \\ n \equiv c &\pmod {5} \\  n \equiv a &\pmod {7} \end{cases}$$
+
+题目给了提示，“中国剩余定理 CRT”。
+
+对于 $3$，我们可以构造 $m_1 = 5 \times 7 = 35$，其对 $5$ 和 $7$ 的模显然都是 $0$，而对 $3$ 的模是 $2$。
+
+对于线性同余方程 $ax\equiv 1\pmod b$，则称 $x$ 为 $a\bmod b$ 的逆元，记作 $a^{-1}$。可以由欧几里得算法推知 $\gcd(a,b)=1$ 是逆元存在的充要条件。求逆元例题 [L2605](https://loj.ac/p/2605)，[L110](https://loj.ac/p/110)。
+
+因此 $35$ 在模 $3$ 意义下的逆元是 $2$，于是有
+
+$$b \times 35 \times 2 \equiv b \pmod 3$$
+
+同理，对于 $5$ 可以得到 $21$ 和其逆元 $1$，于是有
+
+$$c \times 21 \times 1 \equiv c \pmod 5$$
+
+最后，对于 $7$ 可以得到 $15$ 和其逆元 $1$，于是有
+
+$$a \times 15 \times 1 \equiv a \pmod 7$$
+
+注意到我们每次计算时都已经排除其他变量的干扰，因此将全部结果累加也同样具有这些性质
+
+$$n \equiv 70a+21b+15c \pmod {105}$$
+
+从而写出程序
+
+```c
+int main() {
+    int a,b,c;
+    while(scanf("%d%d%d",&c,&a,&b) != EOF) {
+        int ans = a*70 + b*21 + c*15;
+        ans = (ans-1+105)%105+1;
+        printf("%d\n", ans);
+    }
+    return 0;
+}
+```
+
+一般的，若 $n_i$ 中任意两个互质，求方程组
+
+$$\begin{cases} x \equiv a_1 &\pmod {n_1} \\ x \equiv a_2 &\pmod {n_2} \\ &\vdots \\ x \equiv a_k &\pmod {n_k} \end{cases}$$
+
+的解。对于第 $i$ 项，我们可以构造数
+
+$$m_i = \frac{1}{n_i}\prod_{j=1}^k n_j$$
+
+它对除了 $n_i$ 以外的数 $n$ 模都是 $0$，再求 $m_i$ 对 $n_i$ 逆元
+
+$$a_im_im_i^{-1} \equiv a_i\pmod {n_i}$$
+
+对所有的解累加求和得到全部的解
+
+$$x \equiv \sum_{i=1}^k a_im_im_i^{-1} \pmod {\prod_{j=1}^k n_j}$$
+
+中国剩余定理（CRT）例题 [P1495](https://www.luogu.com.cn/problem/P1495)。
+
+对于 $n_i$ 不互质的情况，可以使用 $\rm{exgcd}$ 对问题进行转换。EXCRT 例题 [P4777](https://www.luogu.com.cn/problem/P4777)。
+
 ### 7-26 判断素数
 
 试除法不再详述
@@ -239,9 +301,22 @@ int isprime(int n) {
 }
 ```
 
-常见的素性测试方法还有 Miller-Rabbin 方法，通过快速幂利用二次探测定理， $O(\log n)$。
+常见的素性测试方法还有 Miller-Rabbin 方法。
 
-需要些许数论知识，仅在此示范不做讲解
+费马小定理：如果 $p$ 是素数，$a$ 是小于 $p$ 的正整数，那么 $a^{p-1}\bmod p = 1$。
+
+尽管费马小定理的逆定理并不成立，但是它几乎都是对的，特别是再与二次探测定理结合：如果 $p$ 是素数，$x$ 是小于 $p$ 的正整数，且 $x^2 \bmod p = 1$。
+
+据此可以加强命题：
+
+尽可能提取 $p-1$ 中 $2$  的因子，使得 $p-1 = d\cdot 2^r$。如果 $p$ 是一个素数：
+
+1. 要么 $a^d \bmod p = 1$
+2. 要么存在 $0\leqslant i < r$ 使得 $a^{d\cdot 2^i} \bmod p = p-1$。
+
+选取 $2,7,61$ 为基，那么在 $2^{32}$ 范围内逆命题都是对的。更多特殊基底的情况见 [Link](https://miller-rabin.appspot.com/)。
+
+于是可以写出来 $O(\log n)$ 的算法
 
 ```c
 ll power(ll a, ll b, ll p) {
