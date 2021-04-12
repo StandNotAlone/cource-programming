@@ -6,7 +6,7 @@ PTA 循环结构 HARD。
 
 掌握一些常见的算法很有必要。
 
-如果看不懂，不必死磕。
+算法学习比较考验数学功底，可能理解起来会比较吃力。
 
 ### 7-2 含 8 的数字的个数
 
@@ -75,25 +75,29 @@ int addup(int n, int x) {
 
 第一步是预处理 $f(10^t)$，后面将把任意的 $n$ 分解为一系列 $10^t$  的组合。
 
-- 首先 $f(10) = 1$。对于 $10 \sim 19$ 和 $20 \sim 29$，因为首位数不贡献，可把这些区间看作相似的。只有 $80 \sim 89$ 是特殊的。
+- 首先 $f(10) = 1$。对于 $10 \sim 19$ 和 $20 \sim 29$，因为首位数不贡献，可把这些区间看作相似的。两位数中只有 $80 \sim 89$ 是特殊的。
 
-- 对于 $f(10^2)$，除了特殊的 $80$ 至 $89$，剩下都可看作相似的 $9$ 个 $f(10)$，共记 $9f(10) + 10 = 19$。
+- 对于 $f(10^2)$，除了特殊的 $80 \sim 89$，剩下都可看作相似的 $9$ 个 $f(10)$，共记 $9f(10) + 10 = 19$。
 
-- 同样的对于 $f(10^3)$，除了特殊的 $800$ 至 $899$，剩下都可看作相似的 $9$ 个 $f(10)$，共记 $9f(10^2) + 10^2 = 272$。
+- 同样的对于 $f(10^3)$，除了特殊的 $800$ 至 $899$，剩下都可看作相似的 $9$ 个 $f(10^2)$，共记 $9f(10^2) + 10^2 = 272$。
 
 记 $a_i = f(10^i)$，可以抽象出递推关系，提前预处理
 
 $$a_{i+1} = 9a_{i} + 10^i, a_1 = 1$$
 
-假如要计算的 $x=123456987$，从高到低位逐位分析。
+假如要计算的 $x=123456987$，从高到低位逐位分析，记中间变量为 `ans`，简记为 $s$。
 
-- 首先，最高位的 $1$ 表示有 $1$ 个 $f(10^8)$。
+- 首先，最高位的 $1$ 表示有 $1$ 个 $f(10^8)$，此时 $s=f(100000000)$。
 
-- 次高位的 $2$ 表示有 $2$ 个 $f(10^7)$。
+- 次高位的 $2$ 表示有 $2$ 个 $f(10^7)$，此时 $s=f(120000000)$。
 
-- 直到 $9$，表示有 $8$ 个 $f(10^2)$ 和特殊的 $100$ 个 $800\sim 899$。
+- 接下来的 $3$ 表示有 $3$ 个 $f(10^6)$，此时 $s=f(123000000)$。
 
-- 接下来是 $8$ ，表示有 $8$ 个 $f(10)$，以及特殊且被截断的 $80\sim 87$。因为截断已经计数了，跳出循环。
+- 对于当前位不为 $8$ 的都做类似操作，直到 $9$，表示有 $8$ 个 $f(10^2)$ 和特殊的 $100$ 个 $800\sim 899$，此时 $s=f(123456900)$。
+
+- 接下来是 $8$ ，表示有 $8$ 个 $f(10)$，以及特殊且被截断的 $80\sim 87$，此时 $s=f(123456987)$。
+
+- 因为截断已经计数了，计算完成，跳出循环。
 
 综上，我们可以写出代码，它的复杂度是 $O(\log n)$。
 
@@ -141,21 +145,21 @@ int main() {
 
 ```c
 int isprime(int n) {
-    if(n < 3)
+    if (n < 3)
         return n == 2;
-    if(n % 2 == 0)
+    if (n % 2 == 0)
         return 0;
     int sn = (int)sqrt(n*1.0);
-    for(int i = 3;i <= sn; i += 2)
-        if(n % i == 0)
+    for (int i = 3;i <= sn; i += 2)
+        if (n % i == 0)
             return 0;
     return 1;
 }
 
 int cnt,prime[20000001];
 void init(int n) {
-    for(int i = 2; i <= n; i++) {
-        if(isprime(i)) {
+    for (int i = 2; i <= n; i++) {
+        if (isprime(i)) {
             prime[++cnt] = i;
         }
     }
@@ -165,9 +169,9 @@ int main() {
     int n;
     scanf("%d", &n);
     init(n);
-    for(int i = 1; i <= cnt - 1; i++) {
+    for (int i = 1; i <= cnt - 1; i++) {
         printf("%6d", prime[i]);
-        if(i % 10 == 0)
+        if (i % 10 == 0)
             printf("\n");
     }
     printf("%6d", prime[cnt]);
@@ -200,7 +204,7 @@ void init(int n) {
 }
 ```
 
-线性筛的复杂度更为优秀，是 $O(n)$，因为每个数只会被筛一次。线性筛例题 [P3383](https://www.luogu.com.cn/problem/P3383)。
+线性筛的复杂度更为优秀，是 $O(n)$，因为每个数只会被筛一次。我们更常用线性筛，线性筛例题 [P3383](https://www.luogu.com.cn/problem/P3383)。
 
 ```c
 int notp[10000001];
@@ -221,7 +225,9 @@ void init(int n) {
 }
 ```
 
-## 7-7 中国余数定理（1）
+更加深入的，质数的分布 $\pi(x) \sim \dfrac{x}{\ln x}(x\to \infty)$ 是亚线性的，于是还存在着一些亚线性的筛法，感兴趣的可以自行了解。
+
+### 7-7 中国余数定理（1）
 
 暴力是显然的。我在这里介绍一下数学做法。即求
 
@@ -231,7 +237,7 @@ $$\begin{cases} n \equiv b &\pmod {3} \\ n \equiv c &\pmod {5} \\  n \equiv a &\
 
 对于 $3$，我们可以构造 $m_1 = 5 \times 7 = 35$，其对 $5$ 和 $7$ 的模显然都是 $0$，而对 $3$ 的模是 $2$。
 
-对于线性同余方程 $ax\equiv 1\pmod b$，则称 $x$ 为 $a\bmod b$ 的逆元，记作 $a^{-1}$。可以由欧几里得算法推知 $\gcd(a,b)=1$ 是逆元存在的充要条件。求逆元例题 [L2605](https://loj.ac/p/2605)，[L110](https://loj.ac/p/110)。
+对于线性同余方程 $ax\equiv 1\pmod b$，则称 $x$ 为 $a$ 在模 $b$ 意义下的逆元，记作 $a^{-1}$。可以由欧几里得算法推知 $\gcd(a,b)=1$ 是逆元存在的充要条件。求逆元例题 [L2605](https://loj.ac/p/2605)，[L110](https://loj.ac/p/110)。
 
 因此 $35$ 在模 $3$ 意义下的逆元是 $2$，于是有
 
@@ -247,15 +253,15 @@ $$a \times 15 \times 1 \equiv a \pmod 7$$
 
 注意到我们每次计算时都已经排除其他变量的干扰，因此将全部结果累加也同样具有这些性质
 
-$$n \equiv 70a+21b+15c \pmod {105}$$
+$$n \equiv 70b+21c+15a \pmod {105}$$
 
 从而写出程序
 
 ```c
 int main() {
     int a,b,c;
-    while(scanf("%d%d%d",&c,&a,&b) != EOF) {
-        int ans = a*70 + b*21 + c*15;
+    while (scanf("%d%d%d", &a, &b, &c) != EOF) {
+        int ans = b*70 + c*21 + a*15;
         ans = (ans-1+105)%105+1;
         printf("%d\n", ans);
     }
@@ -281,6 +287,21 @@ $$x \equiv \sum_{i=1}^k a_im_im_i^{-1} \pmod {\prod_{j=1}^k n_j}$$
 
 中国剩余定理（CRT）例题 [P1495](https://www.luogu.com.cn/problem/P1495)。
 
+```c
+ll china_crt(int* aa, int* nn, int n) {
+    ll prod = 1;
+    ll rst = 0;
+    for (int i = 1; i <= n; i++)
+        prod *= nn[i];
+    for (int i = 1; i <= n; i++) {
+        ll m = prod / nn[i];
+        rst += aa[i] * m * inv(m, nn[i]);
+        rst %= prod;
+    }
+    return rst;
+}
+```
+
 对于 $n_i$ 不互质的情况，可以使用 $\rm{exgcd}$ 对问题进行转换。EXCRT 例题 [P4777](https://www.luogu.com.cn/problem/P4777)。
 
 ### 7-26 判断素数
@@ -289,13 +310,13 @@ $$x \equiv \sum_{i=1}^k a_im_im_i^{-1} \pmod {\prod_{j=1}^k n_j}$$
 
 ```c
 int isprime(int n) {
-    if(n < 3)
+    if (n < 3)
         return n == 2;
-    if(n % 2 == 0)
+    if (n % 2 == 0)
         return 0;
     int sn = (int)sqrt(n*1.0);
-    for(int i = 3;i <= sn; i += 2)
-        if(n % i == 0)
+    for (int i = 3;i <= sn; i += 2)
+        if (n % i == 0)
             return 0;
     return 1;
 }
@@ -314,14 +335,14 @@ int isprime(int n) {
 1. 要么 $a^d \bmod p = 1$
 2. 要么存在 $0\leqslant i < r$ 使得 $a^{d\cdot 2^i} \bmod p = p-1$。
 
-选取 $2,7,61$ 为基，那么在 $2^{32}$ 范围内逆命题都是对的。更多特殊基底的情况见 [Link](https://miller-rabin.appspot.com/)。
+选取 $a=2,7,61$ 为基分别测试，那么在 $2^{32}$ 范围内逆命题都是对的。更多特殊基的情况见 [Link](https://miller-rabin.appspot.com/)。
 
 于是可以写出来 $O(\log n)$ 的算法
 
 ```c
 ll power(ll a, ll b, ll p) {
     ll rst = 1 % p;
-    for(; b > 0; b >>= 1) {
+    for (; b > 0; b >>= 1) {
         a = a * a % p;
         if (b & 1)
             rst = a * rst % p;

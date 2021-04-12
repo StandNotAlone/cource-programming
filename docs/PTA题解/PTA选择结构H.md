@@ -189,7 +189,7 @@ int main() {
 
 很容易想到利用取模来优化。为了方便，将星期一到星期天映射到 $0\sim 6$。那样第 $x-n$ 天是星期几，完全只和其对 $7$ 的余数有关。
 
-唯一的问题是负数取模，它的结果可能与你的想象不同，我们应当避免，感兴趣的可以查看 [cppreference](https://zh.cppreference.com/w/c/language/operator_arithmetic#.E4.BD.99.E6.95.B0)。容易验证
+唯一的问题是负数取模，它的结果可能与你的想象不同，感兴趣的可以查看 [cppreference](https://zh.cppreference.com/w/c/language/operator_arithmetic#.E4.BD.99.E6.95.B0)。我们可以考虑避免它，容易验证
 
 $$x - n \bmod 7 \equiv x - n \pmod 7$$
 
@@ -200,8 +200,21 @@ int main() {
     int x, n;
     scanf("%d %d", &x, &n);
     n = n % 7;
-    x -= 1;
+    x--;
     x = (x - n + 7) % 7;
+    printf("%d", x + 1);
+    return 0;
+}
+```
+
+或者，我们还有另一种常见的写法 `(a % b + b) % b`，完整如下
+
+```c
+int main() {
+    int x, n;
+    scanf("%d %d", &x, &n);
+    x--;
+    x = ((x - n) % 7 + 7) % 7;
     printf("%d", x + 1);
     return 0;
 }
@@ -209,7 +222,7 @@ int main() {
 
 ### 7-9 日期识别 2
 
-本题略要思考。首先因为分隔符未知，可以使用 `%c` 吸收掉。
+本题略要思考。首先因为分隔符未知，可以使用 `%c` 吸收掉，进行 $6$ 次判断。
 
 ```c
 int main() {
@@ -231,26 +244,21 @@ int main() {
 }
 ```
 
-先特判掉不合法的数字，之后计算当前月份有多少天。
+对于合法的年月，再计算当前月份应有多少天，完全符合返回 $1$，不符合则返回 $0$。
 
 ```c
-int month[] = {
-    0,31,28,31,30,31,30,31,31,30,31,30,31
-};
+int month[] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
 
 int test(int y, int m, int d) {
-    if (y < 0)
-        return 0;
-    if (m <= 0 || m >= 13)
-        return 0;
-    int day = month[m];
-    int flag = (y % 4 == 0 && y % 100 != 0);
-    if (m == 2)
-        if (y % 400 == 0 || flag)
+    if(0 <= y && 1 <= m && m <= 12) {
+        int day = month[m];
+        int run = y % 400 == 0 || (y % 4 == 0 && y % 100 != 0);
+        if (m == 2 && run)
             day++;
-    if (d <= 0 || d > day)
-        return 0;
-    return 1;
+        if(0 < d && d <= day)
+            return 1;
+    }
+    return 0;
 }
 ```
 

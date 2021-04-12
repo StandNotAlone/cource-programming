@@ -481,9 +481,9 @@ int main() {
     max = max > c ? max : c;
     int min = a < b ? a : b;
     min = min < c ? min : c;
-    int mid = a + b + c - min - max;
-	// 如果怕溢出 int ，请使用异或
-    // int mid = a ^ b ^ c ^ min ^ max;
+    int mid = a ^ b ^ c ^ min ^ max;
+	// 如果不怕溢出 int ，可以使用加法
+    // int mid = a + b + c - min - max;
     if (min + mid <= max)
         printf("NO");
     else if (min == max)
