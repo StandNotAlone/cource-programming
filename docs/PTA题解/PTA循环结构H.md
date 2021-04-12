@@ -12,26 +12,6 @@ PTA 循环结构 HARD。
 
 暴力是显然的，为 $O(n \log n)$。
 
-```c
-int main() {
-    int a, b;
-    scanf("%d %d", &a, &b);
-    int sum = 0;
-    for (int i = a; i <= b; i++) {
-        int ti = i;
-        while(ti > 0) {
-            if(ti % 10 == 8) {
-                sum++;
-                break;
-            }
-            ti /= 10;
-        }
-    }
-    printf("%d", sum);
-    return 0;
-}
-```
-
 假如输入的是 `1 123456987`，在我的电脑上大概需要运行 10 秒钟，用 PTA 在线测试则会超时。
 
 这里通过另一道题 [P1980 计数问题](https://www.luogu.com.cn/problem/P1980)，来引出 **数位 DP** 。
@@ -142,42 +122,6 @@ int main() {
 ### 7-5 输出 2 到 n 之间的全部素数
 
 暴力试除法是能过的，为 $O(n\sqrt n)$。
-
-```c
-int isprime(int n) {
-    if (n < 3)
-        return n == 2;
-    if (n % 2 == 0)
-        return 0;
-    int sn = (int)sqrt(n*1.0);
-    for (int i = 3;i <= sn; i += 2)
-        if (n % i == 0)
-            return 0;
-    return 1;
-}
-
-int cnt,prime[20000001];
-void init(int n) {
-    for (int i = 2; i <= n; i++) {
-        if (isprime(i)) {
-            prime[++cnt] = i;
-        }
-    }
-}
-
-int main() {
-    int n;
-    scanf("%d", &n);
-    init(n);
-    for (int i = 1; i <= cnt - 1; i++) {
-        printf("%6d", prime[i]);
-        if (i % 10 == 0)
-            printf("\n");
-    }
-    printf("%6d", prime[cnt]);
-    return 0;
-}
-```
 
 接下来介绍筛法，把 $1 \sim n$ 的所有数字对应到一个数组，在数组上做标记来表示这个数不是质数，即筛去。剩下的自然都是质数。
 
@@ -306,21 +250,7 @@ ll china_crt(int* aa, int* nn, int n) {
 
 ### 7-26 判断素数
 
-试除法不再详述
-
-```c
-int isprime(int n) {
-    if (n < 3)
-        return n == 2;
-    if (n % 2 == 0)
-        return 0;
-    int sn = (int)sqrt(n*1.0);
-    for (int i = 3;i <= sn; i += 2)
-        if (n % i == 0)
-            return 0;
-    return 1;
-}
-```
+试除法不再详述。
 
 常见的素性测试方法还有 Miller-Rabbin 方法。
 
