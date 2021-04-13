@@ -1,6 +1,11 @@
-# 循环结构 PTA
+---
+author: rogeryoungh
+date: 2021 年 04 月 13 日
+...
 
-PTA 循环结构 EASY 部分，[PDF](../PTA循环结构E.md.pdf)。
+# PTA 循环结构 E
+
+PTA 循环结构 EASY 部分，[PDF](../PTA循环结构E.pdf)。
 
 ## 约定
 

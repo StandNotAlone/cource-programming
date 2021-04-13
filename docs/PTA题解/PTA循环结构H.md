@@ -1,6 +1,11 @@
-# 循环结构 PTA
+---
+author: rogeryoungh
+date: 2021 年 04 月 13 日
+...
 
-PTA 循环结构 HARD 部分，[PDF](../PTA循环结构H.md.pdf)。
+# PTA 循环结构 H
+
+PTA 循环结构 HARD 部分，[PDF](../PTA循环结构H.pdf)。
 
 ## 加点优化
 

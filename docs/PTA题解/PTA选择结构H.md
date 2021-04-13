@@ -1,6 +1,11 @@
-# 选择结构 PTA
+---
+author: rogeryoungh
+date: 2021 年 04 月 13 日
+...
 
-PTA 选择结构 HARD 部分，[PDF](../PTA选择结构H.md.pdf)。
+# PTA 选择结构 H
+
+PTA 选择结构 HARD 部分，[PDF](../PTA选择结构H.pdf)。
 
 ## 阶梯付费
 
