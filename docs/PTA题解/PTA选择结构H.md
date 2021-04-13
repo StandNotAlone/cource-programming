@@ -1,6 +1,6 @@
 # 选择结构 PTA
 
-PTA 选择结构 HARD。
+PTA 选择结构 HARD 部分，[PDF](../PTA选择结构H.md.pdf)。
 
 ## 阶梯付费
 

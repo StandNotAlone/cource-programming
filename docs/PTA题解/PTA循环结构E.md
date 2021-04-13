@@ -1,6 +1,6 @@
 # 循环结构 PTA
 
-PTA 循环结构 EASY。
+PTA 循环结构 EASY 部分，[PDF](../PTA循环结构E.md.pdf)。
 
 ## 约定
 

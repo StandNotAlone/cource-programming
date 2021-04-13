@@ -1,6 +1,6 @@
 # 循环结构 PTA
 
-PTA 循环结构 HARD。
+PTA 循环结构 HARD 部分，[PDF](../PTA循环结构H.md.pdf)。
 
 ## 加点优化
 

@@ -1,6 +1,6 @@
 # 选择结构 PTA
 
-PTA 选择结构 EASY。
+PTA 选择结构 EASY 部分，[PDF](../PTA选择结构E.md.pdf)。
 
 ## 关于代码风格
 
