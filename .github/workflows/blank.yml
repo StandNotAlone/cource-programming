@@ -11,15 +11,12 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v2
-        
-      - name: shell allow execute 
-        run:  chmod +x ./buildpdf.sh
 
       - name: convert md to pdf
         uses: docker://pandoc/latex:2.9
         with:
           entrypoint: /bin/sh
-          args: -c ./buildpdf.sh
+          args: -c "cd docs/PTA题解; for f in PTA*.md; do pandoc $f -o ${f%.xls}.pdf --pdf-engine=xelatex -V documentclass=ctexart; done"
 
       - name: Deploy docs
         uses: mhausenblas/mkdocs-deploy-gh-pages@master
