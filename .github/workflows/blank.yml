@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v2
+        
+      - name: shell allow execute 
         run:  chmod +x ./buildpdf.sh
 
       - name: convert md to pdf
