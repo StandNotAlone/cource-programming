@@ -7,7 +7,6 @@ $endif$$if(dir)$$if(latex-dir-rtl)$
 $endif$$endif$%
 \documentclass[a4paper,oneside,UTF8,fontset=none]{ctexart}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
 
@@ -19,20 +18,36 @@ $endif$$endif$%
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 
-$if(verbatim-in-note)$
-\usepackage{fancyvrb}
-$endif$
-\usepackage{xcolor}
+%%%% pronote 设置
+
+%% 数学环境
+
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+
+%% 页面设置
+
+\RequirePackage{geometry}
+\geometry{
+  a4paper,
+  top=25.4mm, bottom=25.4mm,
+  left=20mm, right=20mm,
+  headheight=2.17cm,
+  headsep=4mm,
+  footskip=12mm
+}
+\pagestyle{plain}
+
+%% 颜色
+
+\RequirePackage[table]{xcolor}
+
 \definecolor{linkcolor}{rgb}{0.5,0,0}
 \definecolor{frenchplum}{RGB}{190,20,83}
 
-\definecolor{codecolorkeywords}{RGB}{0,96,255}
-\definecolor{codecolorcomments}{RGB}{127,127,127}
-\definecolor{codecolorxmlcomments}{rgb}{0.5,0.5,0.5}
-\definecolor{codecolorstrings}{RGB}{83,160,119}
-\definecolor{codecolortypes}{rgb}{0.17,0.57,0.68}
-\definecolor{codecolorbg}{RGB}{244,247,248}
-\usepackage{hyperref}
+%% 链接
+
 \RequirePackage{hyperref}
 \hypersetup{
     breaklinks,
@@ -49,38 +64,32 @@ $endif$
     pdfstartview=FitH,
     pdfborder={0 0 0},
 }
-\urlstyle{same}  % don't use monospace font for urls
-$if(verbatim-in-note)$
-\VerbatimFootnotes % allows verbatim text in footnotes
-$endif$
 
-\RequirePackage{geometry}
-\geometry{
-  b5paper,
-  top=25.4mm, bottom=25.4mm,
-  left=20mm, right=20mm,
-  headheight=2.17cm,
-  headsep=4mm,
-  footskip=12mm
+%% 目录
+
+\ctexset{
+    section/titleformat = \raggedright
 }
-\pagestyle{plain}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
 
-\usepackage{listings}
 
-\newcommand{\passthrough}[1]{#1}
+
+%% 字体
 
 %\setCJKmainfont[BoldFont={方正黑体_GBK},ItalicFont={方正楷体_GBK}]{方正书宋_GBK}
+%\setCJKsansfont{方正黑体_GBK}
+%\setCJKfamilyfont{zhsong}{方正书宋_GBK}
+%\setCJKfamilyfont{zhhei}{方正黑体_GBK}
+%\setCJKfamilyfont{zhbsong}{方正小标宋_GBK}
 \setCJKmainfont[BoldFont={思源宋体 CN Bold},ItalicFont={思源黑体 CN}]{思源宋体 CN}
-%\setCJKsansfont{思源黑体 CN}
 \setCJKsansfont{思源黑体 CN}
 \setCJKmonofont{等距更纱黑体 SC}
-%\setCJKfamilyfont{zhsong}{方正书宋_GBK}
 \setCJKfamilyfont{zhsong}{思源宋体 CN}
-%\setCJKfamilyfont{zhhei}{方正黑体_GBK}
 \setCJKfamilyfont{zhhei}{思源黑体 CN}
 \setCJKfamilyfont{zhkai}{方正楷体_GBK}
 \setCJKfamilyfont{zhfs}{方正仿宋_GBK}
-%\setCJKfamilyfont{zhbsong}{方正小标宋_GBK}
+\setCJKfamilyfont{zhbsong}{思源宋体 CN Bold}
 \newcommand*{\fzsong}{\CJKfamily{zhsong}}
 \newcommand*{\fzhei}{\CJKfamily{zhhei}}
 \newcommand*{\fzkai}{\CJKfamily{zhkai}}
@@ -89,8 +98,15 @@ $endif$
 
 %% 代码
 
-\setmonofont{Iosevka SS14}
+\RequirePackage{listings}
+%\setmonofont{Iosevka SS14}
 
+\definecolor{codecolorkeywords}{RGB}{0,96,255}
+\definecolor{codecolorcomments}{RGB}{127,127,127}
+\definecolor{codecolorxmlcomments}{rgb}{0.5,0.5,0.5}
+\definecolor{codecolorstrings}{RGB}{83,160,119}
+\definecolor{codecolortypes}{rgb}{0.17,0.57,0.68}
+\definecolor{codecolorbg}{RGB}{244,247,248}
 
 \lstset{basicstyle=\ttfamily \lst@ifdisplaystyle\fi,
     % Code
@@ -100,6 +116,12 @@ $endif$
     showstringspaces=false,
     showtabs=false,
     breaklines=true,
+    numbers=left,
+    numbersep=10pt,
+    xleftmargin=2em,
+    stepnumber=1,
+    firstnumber=1,
+    numberfirstline=true,
     % Code design
     keywordstyle=\bfseries\color{codecolorkeywords},
     commentstyle=\color{codecolorcomments},
@@ -118,13 +140,7 @@ $endif$
     %backgroundcolor=\color{codecolorbg},
     abovecaptionskip=0pt,
     belowcaptionskip=5pt,
-    %
-	numbers=left,
-    numbersep=10pt,
-    xleftmargin=2em,
-    stepnumber=1,
-    firstnumber=1,
-    numberfirstline=true,
+    % Line numbers
     literate=
         {==}{{==}}2
         {->}{{->}}2
@@ -140,6 +156,19 @@ $endif$
     emph={int,long,float,double,short,byte,bool,ll,signed,unsigned,void,char,true,false},
     emphstyle=\color{frenchplum},
 }
+
+\RequirePackage{caption}
+\DeclareCaptionFormat{codecaptionformat}{%
+    \parbox{\linewidth}{#1#2\ttfamily#3}
+}
+\captionsetup[lstlisting]{format=codecaptionformat}
+\renewcommand{\lstlistingname}{ {\ttfamily </>} 代码}
+
+
+
+\urlstyle{same}
+
+\newcommand{\passthrough}[1]{#1}
 
 \usepackage{longtable,booktabs}
 % Fix footnotes in tables (requires footnote package)
