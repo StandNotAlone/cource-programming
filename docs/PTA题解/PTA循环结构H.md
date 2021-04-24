@@ -275,12 +275,12 @@ ll china_crt(int* aa, int* nn, int n) {
 于是可以写出来 $O(\log n)$ 的算法
 
 ```c
-ll power(ll a, ll b, ll p) {
+ll qpow(ll a, ll b, ll p) {
     ll rst = 1 % p;
     for (; b > 0; b >>= 1) {
-        a = a * a % p;
         if (b & 1)
             rst = a * rst % p;
+        a = a * a % p;
     }
     return rst;
 }
@@ -290,15 +290,14 @@ int miller_rabbin(int n) {
         return (n == 2);
     int a = n - 1, b = 0;
     while (1 - (a & 1)) {
-        a >>= 1;
-        ++b;
+        a >>= 1, ++b;
     }
     int prime[10] = {2, 7, 61};
     for (int i = 0; i <= 2; i++) {
         int x = prime[i];
         if (n == x)
             return 1;
-        ll v = power(x, a, n);
+        ll v = qpow(x, a, n);
         if (v == 1 || v == n - 1)
             continue;
         int j;
