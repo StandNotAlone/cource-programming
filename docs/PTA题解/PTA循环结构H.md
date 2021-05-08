@@ -211,7 +211,7 @@ int main() {
     int a,b,c;
     while (scanf("%d%d%d", &a, &b, &c) != EOF) {
         int ans = b*70 + c*21 + a*15;
-        ans = (ans-1+105)%105+1;
+        ans = (ans - 1 + 105) % 105 + 1;
         printf("%d\n", ans);
     }
     return 0;
