@@ -5,7 +5,7 @@ date: 2021 年 04 月 13 日
 
 # PTA 选择结构 E
 
-PTA 选择结构 EASY 部分，[PDF](../PTA选择结构E.pdf)。
+PTA 选择结构 EASY 部分，[PDF](./PTA选择结构E.pdf)。
 
 ## 关于代码风格
 

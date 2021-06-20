@@ -5,7 +5,7 @@ date: 2021 年 06 月 20 日
 
 # PTA 函数 E
 
-PTA 函数 Easy 部分，[PDF](../PTA函数E.pdf)。
+PTA 函数 Easy 部分，[PDF](./PTA函数E.pdf)。
 
 ## 7-1	不能用循环是一件多么悲伤的事
 

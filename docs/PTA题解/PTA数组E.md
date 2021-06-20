@@ -5,7 +5,7 @@ date: 2021 年 06 月 20 日
 
 # PTA 数组 E
 
-PTA 数组 Easy 部分，[PDF](../PTA数组E.pdf)。
+PTA 数组 Easy 部分，[PDF](./PTA数组E.pdf)。
 
 这次的问题都比较简单。
 
