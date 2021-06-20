@@ -96,11 +96,13 @@ nav:
   - PTA:
     - PTA题解/index.md
     - 基础 EASY:
-      - PTA 选择结构: PTA题解/PTA选择结构E.md
-      - PTA 循环结构: PTA题解/PTA循环结构E.md
+      - PTA 选择: PTA题解/PTA选择E.md
+      - PTA 循环: PTA题解/PTA循环E.md
+      - PTA 数组: PTA题解/PTA数组E.md
+      - PTA 函数: PTA题解/PTA函数E.md
     - 深入 HARD:
-      - PTA 选择结构: PTA题解/PTA选择结构H.md
-      - PTA 循环结构: PTA题解/PTA循环结构H.md
+      - PTA 选择: PTA题解/PTA选择H.md
+      - PTA 循环: PTA题解/PTA循环H.md
   - 其它:
     - Markdown: 其它/Markdown.md
     - MkDocs: 其它/MkDocs.md

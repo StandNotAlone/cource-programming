@@ -77,19 +77,19 @@ $endif$$endif$%
 
 %% 字体
 
-%\setCJKmainfont[BoldFont={方正黑体_GBK},ItalicFont={方正楷体_GBK}]{方正书宋_GBK}
-%\setCJKsansfont{方正黑体_GBK}
-%\setCJKfamilyfont{zhsong}{方正书宋_GBK}
-%\setCJKfamilyfont{zhhei}{方正黑体_GBK}
+%\setCJKmainfont[BoldFont={FZHei-B01},ItalicFont={FZKai-Z03}]{FZShuSong-Z01}
+%\setCJKsansfont{FZHei-B01}
+%\setCJKfamilyfont{zhsong}{FZShuSong-Z01}
+%\setCJKfamilyfont{zhhei}{FZHei-B01}
 %\setCJKfamilyfont{zhbsong}{方正小标宋_GBK}
-\setCJKmainfont[BoldFont={思源宋体 CN Bold},ItalicFont={思源黑体 CN}]{思源宋体 CN}
-\setCJKsansfont{思源黑体 CN}
-\setCJKmonofont{等距更纱黑体 SC}
-\setCJKfamilyfont{zhsong}{思源宋体 CN}
-\setCJKfamilyfont{zhhei}{思源黑体 CN}
-\setCJKfamilyfont{zhkai}{方正楷体_GBK}
-\setCJKfamilyfont{zhfs}{方正仿宋_GBK}
-\setCJKfamilyfont{zhbsong}{思源宋体 CN Bold}
+\setCJKmainfont[BoldFont={Noto Serif CJK SC Bold},ItalicFont={Noto Sans CJK SC}]{Noto Serif CJK SC}
+\setCJKsansfont{Noto Sans CJK SC}
+\setCJKmonofont{Sarasa Mono SC}
+\setCJKfamilyfont{zhsong}{Noto Serif CJK SC}
+\setCJKfamilyfont{zhhei}{Noto Sans CJK SC}
+\setCJKfamilyfont{zhkai}{FZKai-Z03}
+\setCJKfamilyfont{zhfs}{FZFangSong-Z02}
+\setCJKfamilyfont{zhbsong}{Noto Serif CJK SC Bold}
 \newcommand*{\fzsong}{\CJKfamily{zhsong}}
 \newcommand*{\fzhei}{\CJKfamily{zhhei}}
 \newcommand*{\fzkai}{\CJKfamily{zhkai}}
