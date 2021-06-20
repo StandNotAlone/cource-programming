@@ -5,7 +5,7 @@ date: 2021 年 05 月 08 日
 
 # PTA 循环结构 E
 
-PTA 循环结构 EASY 部分，[PDF](./PTA循环结构E.pdf)。
+PTA 循环结构 EASY 部分，[PDF](./PTA循环E.pdf)。
 
 ## 约定
 
